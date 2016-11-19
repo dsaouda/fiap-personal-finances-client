@@ -3,26 +3,42 @@
 </header>
 
 <main class="container">
-    <form>
+        <form method="POST" (submit)="onSubmit($event)">
             <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" class="form-control" name="nome" id="nome" placeholder="Informe o nome da conta">
+                <label for="nome">Nome / Identificador</label>
+                <div class="input-group"> 
+                    <div class="input-group-addon">
+                        <i class="glyphicon glyphicon-piggy-bank"></i>
+                    </div>
+                    <input [(ngModel)]="conta.nome" id="nome" name="nome" type="text" class="form-control" placeholder="Informe o nome da conta">
+                </div>    
             </div>
 
             <div class="form-group">
                 <label for="saldo">Saldo inicial</label>
-                <input type="number" class="form-control" name="saldo" id="saldo" placeholder="Informe um saldo">
+
+                <div class="input-group"> 
+                    <div class="input-group-addon">$</div>
+                    <input [(ngModel)]="conta.saldo" id="saldo" name="saldo" type="number" class="form-control" placeholder="Informe um saldo">
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="observacao">Observaçoes</label>
-                <textarea name="observacao" id="observacao" class="form-control"></textarea>
+                <label for="descricao">Observaçoes</label>
+                <textarea [(ngModel)]="conta.descricao" id="descricao" name="descricao" placeholder="escreva alguma coisa sobre essa conta ... " class="form-control"></textarea>
             </div>
 
             <div class="form-group">
-                <button class="btn btn-lg btn-primary">
+                <button class="btn btn-primary">
                     <i class="glyphicon glyphicon-floppy-disk"></i>
                     Salvar
+                </button>
+                
+                &nbsp;
+
+                <button class="btn btn-default" (click)="onCancelar($event)">
+                    <i class="glyphicon glyphicon-minus-sign"></i>
+                    Cancelar
                 </button>
             </div>
         </form>

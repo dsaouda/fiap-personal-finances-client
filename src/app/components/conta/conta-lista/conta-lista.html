@@ -1,12 +1,15 @@
 <header class="container">
     <h1 class="page-header">Conta</h1>
+    <a [routerLink]="['/contas/novo']" class="btn btn-primary">Novo</a>
 </header>
 
 <main class="container">
+    
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Nome</th>
                     <th>Saldo</th>
                     <th>Observações</th>
@@ -14,15 +17,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr *ngFor="let conta of contas">
+                    <td>{{conta.id}}</td>
+                    <td>{{conta.nome}}</td>
+                    <td>{{conta.saldo}}</td>
+                    <td>{{conta.descricao}}</td>
                     <td>
-                        <a href=""><i class="glyphicon glyphicon-trash"></i> excluir</a>
+                        <a href="" (click)="onExcluir(conta); $event.preventDefault();"><i class="glyphicon glyphicon-trash"></i> excluir</a>
+                        
                         &nbsp;&nbsp;
-                        <a href=""><i class="glyphicon glyphicon-edit"></i> editar</a>
 
+                        <a [routerLink]="['/contas/editar', conta.id]"><i class="glyphicon glyphicon-edit"></i> editar</a>
                     </td>
                 </tr>
             </tbody>

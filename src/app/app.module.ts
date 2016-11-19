@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule} from '@angular/http';
 
 //modulos do sistema
 import { routing } from './app.routes';
@@ -10,6 +10,10 @@ import { routingContas } from './components/conta/conta.routes';
 
 import { AppComponent } from './app.component';
 import { AppNotFoundComponent } from './app-notfound.component';
+
+import {AppService} from './app.service';
+
+import 'rxjs/add/operator/map';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,7 @@ import { AppNotFoundComponent } from './app-notfound.component';
     routingContas,
     routing
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
