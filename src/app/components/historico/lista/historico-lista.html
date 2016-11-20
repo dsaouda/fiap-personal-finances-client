@@ -1,0 +1,150 @@
+<header class="container">
+    <h1 class="page-header">Historico</h1>
+    <a [routerLink]="['/historicos/novo']" class="btn btn-primary">Novo</a>
+
+    <br><br>
+    <div class="form-group">
+        <select [(ngModel)]="filtro.contaId" (change)="onFiltroConta($event)" class="form-control" id="contaId" name="contaId">
+            <option value="0">Selecione uma conta</option>
+            <option *ngFor="let conta of contas" [value]="conta.id">{{conta.nome}}</option>
+        </select>
+    </div>
+
+</header>
+
+<main class="container">
+    
+    <h3>Contas em aberto - Seu saldo atual {{conta.saldo}}</h3>
+    
+    <div class="table-responsive">
+        A previsão de seu saldo após concluir a finalização dos lançamentos é aproximadamente de {{previsaoSaldo}}
+        <br><br>
+
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th><i class="glyphicon glyphicon-edit"></i></th>
+                    <th>Conta</th>
+                    <th>Tipo</th>
+                    <th>Docto.</th>
+                    <th>Info</th>
+                    <th>Lançamento</th>
+                    <th>Vencimento</th>
+                    <th>Valor</th>
+                    <th>
+                        <i class="glyphicon glyphicon-ok"></i>
+                    </th>
+                    <th>
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let historico of historicosAbertos">
+                    <td>
+                        <a [routerLink]="['/historicos/editar', historico.id]">
+                            <i class="glyphicon glyphicon-edit"></i>
+                        </a>
+                    </td>
+                    <td>{{historico.conta_nome}}</td>
+                    <td>{{historico.categoria_nome}}</td>
+                    <td>{{historico.docto}}</td>
+                    <td>
+                        {{historico.descricao}}
+
+                        <span *ngIf="historico.observacao" title="{{historico.observacao}}">[?]</span>
+                    </td>
+                    <td>{{historico.data_movimento | amDateFormat:'DD/MM/YYYY'}}</td>
+                    <td>{{historico.data_vencimento | amDateFormat:'DD/MM/yyyy'}}</td>
+                    
+                    <td [class]="historico.valor > 0 ? 'receita' : 'despesa'">   
+                        {{historico.valor}}
+                    </td>
+
+                    <td>
+                        <a href="" (click)="onFinalizar(historico); $event.preventDefault();">
+                            <i class="glyphicon glyphicon-ok"></i>
+                        </a>                        
+                    </td>
+
+                    <td>
+                        <a href="" (click)="onExcluir(historico); $event.preventDefault();">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <h3>Contas Finalizadas</h3>
+
+    <div class="row"><br><br></div>
+
+    <div class="row">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="dtFrom">Filtrar de</label>
+                <input [(ngModel)]="filtro.dtFrom" type="date" class="form-control" id="dtFrom" name="dtFrom">
+            </div>
+            <div class="form-group">
+                <label for="dtTo">até</label>
+                <input [(ngModel)]="filtro.dtTo" type="date" class="form-control" id="dtTo" name="dtTo">
+            </div>
+            
+            <button (click)="onFiltrar()" class="btn btn-default">
+                <i class="glyphicon glyphicon-filter"></i>
+                Filtrar
+            </button>
+        </form>
+    </div>
+
+    <div class="row"><br><br></div>
+    
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Conta</th>
+                        <th>Tipo</th>
+                        <th>Docto.</th>
+                        <th>Info</th>
+                        <th>Lançamento</th>
+                        <th>Vencimento</th>
+                        <th>Valor</th>
+                        <th><i class="glyphicon glyphicon-repeat"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let historico of historicosFinalizados">
+                        <td>{{historico.conta_nome}}</td>
+                        <td>{{historico.categoria_nome}}</td>
+                        <td>{{historico.docto}}</td>
+                        <td>
+                            {{historico.descricao}}
+
+                            <div class="observacao">
+                                {{historico.observacao}}
+                            </div>
+                        </td>
+                        <td>{{historico.data_movimento | amDateFormat:'DD/MM/YYYY'}}</td>
+                        <td>{{historico.data_vencimento | amDateFormat:'DD/MM/yyyy'}}</td>
+                        
+                        <td [class]="historico.valor > 0 ? 'receita' : 'despesa'">
+                            {{historico.valor}}
+                        </td>
+
+                        <td>
+                            <a href="" (click)="onAbrir(historico); $event.preventDefault();">
+                                <i class="glyphicon glyphicon-repeat"></i>
+                            </a>                        
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>

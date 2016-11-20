@@ -1,0 +1,23 @@
+<header class="container">
+    <h1 class="page-header">Historico</h1>
+</header>
+
+<main class="container">
+        <form method="POST" (submit)="onSubmit($event)">
+            
+
+            <div class="form-group">
+                <button class="btn btn-primary">
+                    <i class="glyphicon glyphicon-floppy-disk"></i>
+                    Salvar
+                </button>
+                
+                &nbsp;
+
+                <button class="btn btn-default" (click)="onCancelar($event)">
+                    <i class="glyphicon glyphicon-minus-sign"></i>
+                    Cancelar
+                </button>
+            </div>
+        </form>
+</main>

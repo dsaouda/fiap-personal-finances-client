@@ -1,0 +1,14 @@
+.observacao {
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.receita {
+    background: green;
+    color: #fff;
+}
+
+.despesa {
+    background: red;
+    color: #fff;
+}

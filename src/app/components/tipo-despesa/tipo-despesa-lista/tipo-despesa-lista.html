@@ -1,0 +1,36 @@
+<header class="container">
+    <h1 class="page-header">Tipo Despesas</h1>
+    <a [routerLink]="['/tipo-despesas/novo']" class="btn btn-primary">Novo</a>
+</header>
+
+<main class="container">
+    
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Recorrente?</th>
+                    <th>Observações</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tipoDespesa of tipoDespesas">
+                    <td>{{tipoDespesa.id}}</td>
+                    <td>{{tipoDespesa.nome}}</td>
+                    <td>{{tipoDespesa.recorrente | simOuNao}}</td>
+                    <td>{{tipoDespesa.descricao}}</td>
+                    <td>
+                        <a href="" (click)="onExcluir(tipoDespesa); $event.preventDefault();"><i class="glyphicon glyphicon-trash"></i> excluir</a>
+                        
+                        &nbsp;&nbsp;
+
+                        <a [routerLink]="['/tipo-despesas/editar', tipoDespesa.id]"><i class="glyphicon glyphicon-edit"></i> editar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
