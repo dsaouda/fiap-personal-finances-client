@@ -12,3 +12,13 @@
     background: red;
     color: #fff;
 }
+
+.status-pagamentos {
+    font-size: 0.8em;
+    margin-right: 1em;
+    margin-top: 1em;
+    float: left;
+    padding: 0.5em;
+
+    border-radius: 2em;
+}

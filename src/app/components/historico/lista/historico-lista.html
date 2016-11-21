@@ -1,15 +1,31 @@
 <header class="container">
     <h1 class="page-header">Historico</h1>
+    
     <a [routerLink]="['/historicos/novo']" class="btn btn-primary">Novo</a>
 
     <br><br>
-    <div class="form-group">
+    
+    <div class="row">
+        <label>Conta que está sendo gerenciada</label>
         <select [(ngModel)]="filtro.contaId" (change)="onFiltroConta($event)" class="form-control" id="contaId" name="contaId">
             <option value="0">Selecione uma conta</option>
             <option *ngFor="let conta of contas" [value]="conta.id">{{conta.nome}}</option>
         </select>
     </div>
+    <br>
 
+    <br>
+    <div class="row">
+        Leganda categorias recorrentes: N (número de históricos finalizados) / N (Número de históricos pendentes)
+    </div>
+
+    <div class="row">
+        <div *ngFor="let status of statusPagamentos" [class]="(status.total == 0) ? 'status-pagamentos btn-danger' : (status.pagos === status.total ? 'status-pagamentos btn-success' : 'status-pagamentos btn-warning')">
+            {{status.nome}} <span class="badge">{{status.pagos}} / {{status.total}}</span>
+        </div>
+    </div>
+    <br>
+    
 </header>
 
 <main class="container">

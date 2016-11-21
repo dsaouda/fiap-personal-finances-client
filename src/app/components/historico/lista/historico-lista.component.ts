@@ -20,7 +20,7 @@ export class HistoricoListaComponent implements OnInit {
     contas: Array<ContaModel>;
     conta: ContaModel;
     previsaoSaldo: Number = null;
-    
+    statusPagamentos: any;
 
     constructor(
         private service: HistoricoService, 
@@ -29,6 +29,7 @@ export class HistoricoListaComponent implements OnInit {
     ) {
         this.historicosAbertos = new Array<HistoricoModel>();
         this.historicosFinalizados = new Array<HistoricoModel>();
+        this.statusPagamentos = new Array<any>();
         this.conta = new ContaModel();
 
         let primeiroDiaDoMes = moment().startOf('month').format('YYYY-MM-DD');
@@ -56,7 +57,12 @@ export class HistoricoListaComponent implements OnInit {
 
             this.onListarAbertas();
             this.onListarFinalizados();
+            this.onStatusPagamentos();
         });
+    }
+
+    onStatusPagamentos() {
+        this.service.statusPagamentos(this.filtro).subscribe(s => this.statusPagamentos = s);
     }
 
     onFiltroConta(event) {
@@ -66,6 +72,7 @@ export class HistoricoListaComponent implements OnInit {
 
         this.onListarAbertas();
         this.onListarFinalizados();
+        this.onStatusPagamentos();
     }
 
     private buscarConta() {
@@ -87,6 +94,7 @@ export class HistoricoListaComponent implements OnInit {
     onFiltrar() {
         this.session.store('filtro', this.filtro);
         this.onListarFinalizados();
+        this.onStatusPagamentos();
     }
 
     onListarAbertas() {
@@ -119,6 +127,7 @@ export class HistoricoListaComponent implements OnInit {
         this.service.finalizar(historico).subscribe(() => {
             this.onListarAbertas();
             this.onListarFinalizados();
+            this.onStatusPagamentos();
         });
     }
 
@@ -126,6 +135,7 @@ export class HistoricoListaComponent implements OnInit {
         this.service.abrir(historico).subscribe(() => {
             this.onListarAbertas();
             this.onListarFinalizados();
+            this.onStatusPagamentos();
         });
     }
     

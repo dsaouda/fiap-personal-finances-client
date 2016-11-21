@@ -28,6 +28,12 @@ export class HistoricoService {
         return this.mudarStatus(historico, 'A');
     }
 
+    statusPagamentos(filtro: any) {
+        return this.service
+            .get(`/status-pagamentos?dtFrom=${filtro.dtFrom}&dtTo=${filtro.dtTo}`)
+            .map(res => res.json());
+    }
+
     listarAbertas(contaId: number): Observable<Array<HistoricoModel>> {
         return this.service
             .get(`${this.uriBase}?status=A&contaId=${contaId}`)

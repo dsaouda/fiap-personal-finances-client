@@ -18,7 +18,7 @@ export class HistoricoFormComponent implements OnInit {
     contas: Array<any>;
     categorias: Array<any>;
     historicoForm : FormGroup;
-
+    
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -68,8 +68,8 @@ export class HistoricoFormComponent implements OnInit {
 
                 this.tipoDespesaService.listar().subscribe(tipoDespesas => { 
                     this.categorias = tipoDespesas.map(e => ({value: e.id, label: e.nome}));
-                    let filtro = this.session.retrieve('filtro');
                     
+                    let filtro = this.session.retrieve('filtro');
                     if (filtro.contaId) {
                         this.historicoForm.patchValue({conta_id: filtro.contaId});
                     }

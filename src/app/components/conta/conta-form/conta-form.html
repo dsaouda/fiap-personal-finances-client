@@ -10,7 +10,7 @@
                     <div class="input-group-addon">
                         <i class="glyphicon glyphicon-piggy-bank"></i>
                     </div>
-                    <input [(ngModel)]="conta.nome" id="nome" name="nome" type="text" class="form-control" placeholder="Informe o nome da conta">
+                    <input required [(ngModel)]="conta.nome" id="nome" name="nome" type="text" class="form-control" placeholder="Informe o nome da conta">
                 </div>    
             </div>
 
@@ -19,7 +19,7 @@
 
                 <div class="input-group"> 
                     <div class="input-group-addon">$</div>
-                    <input [(ngModel)]="conta.saldo" id="saldo" name="saldo" type="number" class="form-control" placeholder="Informe um saldo">
+                    <input required [(ngModel)]="conta.saldo" id="saldo" name="saldo" type="number" class="form-control" placeholder="Informe um saldo">
                 </div>
             </div>
 
