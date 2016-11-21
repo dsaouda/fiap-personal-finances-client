@@ -16,7 +16,7 @@
     
     <h3>Contas em aberto <span *ngIf="filtro.contaId > 0">- Seu saldo atual {{conta.saldo}}</span></h3>
     
-    <div *ngIf="previsaoSaldo > 0">
+    <div *ngIf="previsaoSaldo !== null">
         A previsão de seu saldo após concluir a finalização dos lançamentos é aproximadamente de {{previsaoSaldo}}
         <br><br>
     </div>

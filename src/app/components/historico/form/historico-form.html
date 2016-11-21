@@ -3,7 +3,10 @@
 </header>
 
 <main class="container">
-        <form method="POST" (submit)="onSubmit($event)">
+        
+        <form [formGroup]="historicoForm" method="POST" (ngSubmit)="onSubmit($event)">
+            <input type="hidden" formControlName="id">
+
             <div class="form-group">
                 <label for="conta_id">Conta</label>
                 <div class="input-group"> 
@@ -11,11 +14,7 @@
                         <i class="glyphicon glyphicon-piggy-bank"></i>
                     </div>
                     
-                    <select required [(ngModel)]="historico.conta_id" class="form-control" id="conta_id" name="conta_id">
-                        <option value="">Selecione uma conta</option>
-                        <option *ngFor="let conta of contas" [value]="conta.id">{{conta.nome}}</option>
-                    </select>
-
+                    <ng-select [options]="contas" [multiple]="false" formControlName="conta_id"></ng-select>
                 </div>    
             </div>
 
@@ -26,10 +25,7 @@
                         <i class="glyphicon glyphicon-check"></i>
                     </div>
                     
-                    <select required [(ngModel)]="historico.categoria_id" class="form-control" id="categoria_id" name="categoria_id">
-                        <option value="">Selecione uma categoria</option>
-                        <option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nome}}</option>
-                    </select>
+                    <ng-select [options]="categorias" [multiple]="false" formControlName="categoria_id"></ng-select>
                 </div>    
             </div>
 
@@ -39,7 +35,7 @@
                     <div class="input-group-addon">
                         <i class="glyphicon glyphicon-asterisk"></i>
                     </div>
-                    <input [(ngModel)]="historico.docto" id="docto" name="docto" type="text" class="form-control" placeholder="Informe o docto.">
+                    <input formControlName="docto" type="text" class="form-control" placeholder="Informe o docto.">
                 </div>
 
                 <span id="helpBlock" class="help-block">
@@ -53,7 +49,7 @@
                     <div class="input-group-addon">
                         <i class="glyphicon glyphicon-align-left"></i>
                     </div>
-                    <textarea required [(ngModel)]="historico.descricao" id="descricao" name="descricao" class="form-control"></textarea>
+                    <textarea required formControlName="descricao" class="form-control"></textarea>
                 </div>    
             </div>
 
@@ -63,7 +59,7 @@
                     <div class="input-group-addon">
                         <i class="glyphicon glyphicon-comment"></i>
                     </div>
-                    <textarea [(ngModel)]="historico.observacao" id="observacao" name="observacao" class="form-control"></textarea>
+                    <textarea formControlName="observacao" class="form-control"></textarea>
                 </div>    
             </div>
 
@@ -73,7 +69,7 @@
                     <div class="input-group-addon">
                         <i class="glyphicon glyphicon-usd"></i>
                     </div>
-                    <input required [(ngModel)]="historico.valor" id="valor" name="valor" type="text" class="form-control" placeholder="valor">
+                    <input required formControlName="valor" type="text" class="form-control" placeholder="valor">
                 </div>  
 
                 <span id="helpBlock" class="help-block">
@@ -87,12 +83,12 @@
                     <div class="input-group-addon">
                         <i class="glyphicon glyphicon-calendar"></i>
                     </div>
-                    <input required [(ngModel)]="historico.data_movimento" id="data_movimento" name="data_movimento" type="date" class="form-control">
+                    <input required formControlName="data_movimento" type="date" class="form-control">
                 </div>    
             </div>
 
             <div class="form-group">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" [disabled]="!historicoForm.valid">
                     <i class="glyphicon glyphicon-floppy-disk"></i>
                     Salvar
                 </button>

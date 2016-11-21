@@ -1,0 +1,5 @@
+{
+  "globalDependencies": {
+    "chosen.jquery": "registry:dt/chosen.jquery#0.0.0+20160714084217"
+  }
+}

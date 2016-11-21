@@ -7,6 +7,7 @@ import {HistoricoService} from '../service';
 import {TipoDespesaService} from '../../tipo-despesa/tipo-despesa.service';
 import {ContaService} from '../../conta/conta.service';
 import {SessionStorageService} from 'ng2-webstorage';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 @Component({
     selector: 'historico-form',
@@ -14,25 +15,32 @@ import {SessionStorageService} from 'ng2-webstorage';
 })
 export class HistoricoFormComponent implements OnInit {
     
-    historico: HistoricoModel;
-    contas: Array<ContaModel>;
-    categorias: Array<TipoDespesaModel>;
-    
+    contas: Array<any>;
+    categorias: Array<any>;
+    historicoForm : FormGroup;
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private service: HistoricoService,
         private tipoDespesaService: TipoDespesaService,
         private contaService: ContaService,
-        private session: SessionStorageService
+        private session: SessionStorageService,
+        fb: FormBuilder
     ) {
-        this.historico = new HistoricoModel();
-
-        let filtro = session.retrieve('filtro');
+        this.categorias = [];
+        this.contas = [];
         
-        if (filtro.contaId) {
-            this.historico.conta_id = filtro.contaId;
-        }
+        this.historicoForm = fb.group({
+            'id': [null],
+            'conta_id' : [null, Validators.required],
+            'categoria_id': [null, Validators.required],
+            'docto': [null],
+            'descricao': [null, Validators.required],
+            'observacao': [null],
+            'valor': [null, Validators.required],
+            'data_movimento': [null, Validators.required],
+        });
     }
 
     ngOnInit() {
@@ -42,19 +50,30 @@ export class HistoricoFormComponent implements OnInit {
 
                 this.tipoDespesaService.listar().subscribe(
                     tipoDespesas => {
-                        this.categorias = tipoDespesas
-
+                        this.categorias = tipoDespesas.map(e => ({value: e.id, label: e.nome}));
+                        
                         this.contaService.listar().subscribe(contas => {
-                            this.contas = contas
+                            this.contas = contas.map(e => ({value: e.id, label: e.nome}));
 
                             this.service.buscar(params['id']).subscribe((historico: HistoricoModel ) => {
-                                this.historico = historico;
+                                this.historicoForm.patchValue(historico);
                             });
                         });
                     });
             } else {
-                this.tipoDespesaService.listar().subscribe(tipoDespesas => this.categorias = tipoDespesas);
-                this.contaService.listar().subscribe(contas => this.contas = contas);
+                
+                this.contaService.listar().subscribe(contas => {
+                    this.contas = contas.map(e => ({value: e.id, label: e.nome}));
+                });
+
+                this.tipoDespesaService.listar().subscribe(tipoDespesas => { 
+                    this.categorias = tipoDespesas.map(e => ({value: e.id, label: e.nome}));
+                    let filtro = this.session.retrieve('filtro');
+                    
+                    if (filtro.contaId) {
+                        this.historicoForm.patchValue({conta_id: filtro.contaId});
+                    }
+                });
             }
         });
     }
@@ -62,11 +81,8 @@ export class HistoricoFormComponent implements OnInit {
     onSubmit(event: MouseEvent) {
         event.preventDefault();
 
-        this.service.save(this.historico).subscribe((r) => {
-            console.log(r);
-
+        this.service.save(this.historicoForm.value).subscribe((r) => {
             this.router.navigate(['/historicos']);
-
         }, (error) => {
             console.log('ERRO');
         });
@@ -75,7 +91,6 @@ export class HistoricoFormComponent implements OnInit {
     onCancelar(event: MouseEvent) {
         event.preventDefault();
         this.router.navigate(['/historicos']);
-        
     }
 
 }

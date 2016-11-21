@@ -19,7 +19,7 @@ export class HistoricoListaComponent implements OnInit {
     filtro: any = {};
     contas: Array<ContaModel>;
     conta: ContaModel;
-    previsaoSaldo: Number = 0;
+    previsaoSaldo: Number = null;
     
 
     constructor(
@@ -78,7 +78,7 @@ export class HistoricoListaComponent implements OnInit {
                     if (this.historicosAbertos.length > 0) {
                         this.previsaoSaldo = Math.round(conta.saldo + this.historicosAbertos.map(h => h.valor).reduce( (v1, v2) => v1+v2));
                     } else {
-                        this.previsaoSaldo = 0;
+                        this.previsaoSaldo = null;
                     }
                 });
         }
