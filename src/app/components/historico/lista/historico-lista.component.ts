@@ -4,6 +4,7 @@ import {HistoricoModel} from '../model';
 import {ContaService} from '../../conta/conta.service';
 import {ContaModel} from '../../conta/conta.model';
 import {SessionStorageService} from 'ng2-webstorage';
+import * as moment from 'moment';
 
 @Component({
     selector: 'historico-lista',
@@ -21,16 +22,23 @@ export class HistoricoListaComponent implements OnInit {
     previsaoSaldo: Number = 0;
     
 
-    constructor(private service: HistoricoService, private contaService: ContaService, private session: SessionStorageService) {
+    constructor(
+        private service: HistoricoService, 
+        private contaService: ContaService, 
+        private session: SessionStorageService
+    ) {
         this.historicosAbertos = new Array<HistoricoModel>();
         this.historicosFinalizados = new Array<HistoricoModel>();
         this.conta = new ContaModel();
 
+        let primeiroDiaDoMes = moment().startOf('month').format('YYYY-MM-DD');
+        let ultimoDiaDoMes = moment().endOf('month').format('YYYY-MM-DD');
+
         //criar valor padrão
-        if (Object.keys(this.session.retrieve('filtro')).length === 0) {
+        if (this.session.retrieve('filtro') === null || Object.keys(this.session.retrieve('filtro')).length === 0) {
             this.filtro = {
-                dtFrom: '2016-11-01',
-                dtTo: '2016-11-30',
+                dtFrom: primeiroDiaDoMes,
+                dtTo: ultimoDiaDoMes,
                 contaId: 0,
             }
 
@@ -43,13 +51,11 @@ export class HistoricoListaComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.onListarAbertas();
-        this.onListarFinalizados();
-        
-        this.buscarConta();
-
         this.contaService.listar().subscribe((contas) => {
             this.contas = contas;
+
+            this.onListarAbertas();
+            this.onListarFinalizados();
         });
     }
 
@@ -63,13 +69,17 @@ export class HistoricoListaComponent implements OnInit {
     }
 
     private buscarConta() {
-        if (this.filtro.contaId) {
+        if (this.filtro.contaId > 0) {
             this.contaService
                 .buscar(this.filtro.contaId)
                 .subscribe((conta: ContaModel) => {
                     this.conta = conta;
 
-                    this.previsaoSaldo = Math.round(conta.saldo + this.historicosAbertos.map(h => h.valor).reduce( (v1, v2) => v1+v2));
+                    if (this.historicosAbertos.length > 0) {
+                        this.previsaoSaldo = Math.round(conta.saldo + this.historicosAbertos.map(h => h.valor).reduce( (v1, v2) => v1+v2));
+                    } else {
+                        this.previsaoSaldo = 0;
+                    }
                 });
         }
     }

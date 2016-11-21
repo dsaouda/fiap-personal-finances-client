@@ -4,25 +4,7 @@
 
 <main class="container">
         <form method="POST" (submit)="onSubmit($event)">
-
-            <div class="form-group">
-                <label for="nome">Icone</label>
-                <div class="input-group"> 
-                    <div class="input-group-addon">
-                        <i class="glyphicon glyphicon-picture"></i>
-                    </div>
-                    
-                    <input [(ngModel)]="tipoDespesa.icone" id="icone" name="icone" type="text" class="form-control" placeholder="Informe o icone ... css glyphicon">
-                </div>    
-
-                <span id="helpBlock" class="help-block">
-                    Você pode encontrar os valores permitidos nesse link 
-                    <a href="http://getbootstrap.com/components/#btn-dropdowns" target="_blank">
-                        http://getbootstrap.com/components/#btn-dropdowns
-                    </a>
-                </span>
-            </div>
-
+            
             <div class="form-group">
                 <label for="nome">Nome / Identificador</label>
                 <div class="input-group"> 

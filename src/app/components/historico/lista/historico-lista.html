@@ -14,12 +14,14 @@
 
 <main class="container">
     
-    <h3>Contas em aberto - Seu saldo atual {{conta.saldo}}</h3>
+    <h3>Contas em aberto <span *ngIf="filtro.contaId > 0">- Seu saldo atual {{conta.saldo}}</span></h3>
     
-    <div class="table-responsive">
+    <div *ngIf="previsaoSaldo > 0">
         A previsão de seu saldo após concluir a finalização dos lançamentos é aproximadamente de {{previsaoSaldo}}
         <br><br>
+    </div>
 
+    <div  class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -29,7 +31,7 @@
                     <th>Docto.</th>
                     <th>Info</th>
                     <th>Lançamento</th>
-                    <th>Vencimento</th>
+                    <!--<th>Vencimento</th>!-->
                     <th>Valor</th>
                     <th>
                         <i class="glyphicon glyphicon-ok"></i>
@@ -52,10 +54,12 @@
                     <td>
                         {{historico.descricao}}
 
-                        <span *ngIf="historico.observacao" title="{{historico.observacao}}">[?]</span>
+                        <div class="observacao">
+                            {{historico.observacao}}
+                        </div>
                     </td>
                     <td>{{historico.data_movimento | amDateFormat:'DD/MM/YYYY'}}</td>
-                    <td>{{historico.data_vencimento | amDateFormat:'DD/MM/yyyy'}}</td>
+                    <!--<td>{{historico.data_vencimento | amDateFormat:'DD/MM/yyyy'}}</td>-->
                     
                     <td [class]="historico.valor > 0 ? 'receita' : 'despesa'">   
                         {{historico.valor}}
@@ -113,7 +117,7 @@
                         <th>Docto.</th>
                         <th>Info</th>
                         <th>Lançamento</th>
-                        <th>Vencimento</th>
+                        <!--<th>Vencimento</th>-->
                         <th>Valor</th>
                         <th><i class="glyphicon glyphicon-repeat"></i></th>
                     </tr>
@@ -131,7 +135,7 @@
                             </div>
                         </td>
                         <td>{{historico.data_movimento | amDateFormat:'DD/MM/YYYY'}}</td>
-                        <td>{{historico.data_vencimento | amDateFormat:'DD/MM/yyyy'}}</td>
+                        <!--<td>{{historico.data_vencimento | amDateFormat:'DD/MM/yyyy'}}</td>-->
                         
                         <td [class]="historico.valor > 0 ? 'receita' : 'despesa'">
                             {{historico.valor}}
