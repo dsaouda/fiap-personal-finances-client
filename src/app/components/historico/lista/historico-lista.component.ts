@@ -115,12 +115,10 @@ export class HistoricoListaComponent implements OnInit {
 
     }
 
-    onExcluir(historico: HistoricoModel) {
+    onExcluir(historico: HistoricoModel) {        
         this.service.remover(historico.id).subscribe( () => {
-
-            this.onListarAbertas();
-
-        }, (error) => alert('ERRO'));
+        this.onListarAbertas();
+        }, (error) => alert('ERRO'));                
     }
 
     onFinalizar(historico: HistoricoModel) {

@@ -88,9 +88,8 @@
                     </td>
 
                     <td>
-                        <a href="" (click)="onExcluir(historico); $event.preventDefault();">
-                            <i class="glyphicon glyphicon-trash"></i>
-                        </a>                        
+                        <button-confirm icone="glyphicon glyphicon-trash" message="Deseja excluir esse lançamento?" (click)="onExcluir(historico);">                            
+                        </button-confirm>
                     </td>
                 </tr>
             </tbody>
