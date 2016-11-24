@@ -1,0 +1,43 @@
+<header class="container">
+    <h1 class="page-header">Historico</h1>
+</header>
+
+<main class="container">
+        
+        <form [formGroup]="form" method="POST" (ngSubmit)="onSubmit($event)">
+            <div class="form-group">
+                <label for="conta_id">Conta</label>
+                <div class="input-group"> 
+                    <div class="input-group-addon">
+                        <i class="glyphicon glyphicon-piggy-bank"></i>
+                    </div>
+                    
+                    <ng-select [options]="contas" [multiple]="false" formControlName="conta_id"></ng-select>
+                </div>    
+            </div>
+
+            <div class="form-group">
+                <label for="arquivo">Documento OFX</label>
+                <div class="input-group"> 
+                    <div class="input-group-addon">
+                        <i class="glyphicon glyphicon-arrow-up"></i>
+                    </div>
+                    <input required formControlName="arquivo" (change)="onChange($event)" type="file" class="form-control">
+                </div>    
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary">
+                    <i class="glyphicon glyphicon-open"></i>
+                    Importar
+                </button>
+                
+                &nbsp;
+
+                <button class="btn btn-default" (click)="onCancelar($event)">
+                    <i class="glyphicon glyphicon-minus-sign"></i>
+                    Cancelar
+                </button>
+            </div>
+        </form>
+</main>

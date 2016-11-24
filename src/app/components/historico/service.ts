@@ -1,15 +1,26 @@
-import {Http, Response} from '@angular/http';
+import {Http, Response, Headers} from '@angular/http';
 import {Injectable} from '@angular/core';
 import {HistoricoModel} from './model';
 import {Observable} from 'rxjs';
 import {AppService} from '../../app.service';
+import {Env} from '../../../../.env';
 
 @Injectable()
 export class HistoricoService {
     private uriBase = '/historicos';
     
-    constructor(private service: AppService, http: Http) {
+    constructor(private service: AppService, private http: Http) {}
+
+    importar(values) {
+
+        let headers = new Headers();
+        let formData:FormData = new FormData();
+        formData.append('arquivo', values.arquivo, values.arquivo.name);
+        formData.append('conta_id', values.conta_id);
         
+        return this.http.post(`${Env.URL_API}${this.uriBase}/importar`, formData, {
+            headers: headers
+        });
     }
 
     buscar(id: number): Observable<HistoricoModel> {
