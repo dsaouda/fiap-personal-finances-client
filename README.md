@@ -1,13 +1,28 @@
-# PersonalFinances
+## fiap-personal-finances-client
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.19-3.
+Projeto gerado usando [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.19-3.
+Instale esse projeto antes de continuar.
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Servidor
 
-## Code scaffolding
+Como servidor a aplicação depende do projeto [fiap-personal-finances-server](https://github.com/dsaouda/fiap-personal-finances-server)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class`.
+
+## Instalação
+
+```bash
+npm install
+```
+
+## Configuração
+
+Copie o contéudo do arquivo **.env.ts.dist** (template de configuração) e colar em um arquivo chamado **.env.ts**. Configure URL_API informando o domínio ou IP da aplicação **fiap-personal-finances-server**.
+
+
+## Servidor de desenvolvimento
+Execute `ng serve`. Acesse `http://localhost:4200/`. A aplicação irá carregar automaticamente se você modificar arquivos do código fonte.
+
+# As informações abaixo foram geradas pelo angula-cli
 
 ## Build
 
