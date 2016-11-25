@@ -7,6 +7,9 @@ Instale esse projeto antes de continuar.
 
 Como servidor a aplicação depende do projeto [fiap-personal-finances-server](https://github.com/dsaouda/fiap-personal-finances-server)
 
+```bash
+npm install -g angular-cli
+```
 
 ## Instalação
 
