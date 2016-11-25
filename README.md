@@ -11,7 +11,7 @@ Como servidor a aplicação depende do projeto [fiap-personal-finances-server](h
 npm install -g angular-cli
 ```
 
-## Instalação
+## Instalando dependências de desenvolvimento
 
 ```bash
 npm install
@@ -25,25 +25,10 @@ Copie o contéudo do arquivo **.env.ts.dist** (template de configuração) e col
 ## Servidor de desenvolvimento
 Execute `ng serve`. Acesse `http://localhost:4200/`. A aplicação irá carregar automaticamente se você modificar arquivos do código fonte.
 
-# As informações abaixo foram geradas pelo angula-cli
-
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+Rode `ng build`. O projeto será construido em `dist/`. Use `-prod` para realizar o build em modo de produção.
 
 ## Deploying to Github Pages
 
-Run `ng github-pages:deploy` to deploy to Github Pages.
-
-## Further help
-
-To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+`ng github-pages:deploy`.
