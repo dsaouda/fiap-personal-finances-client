@@ -17,6 +17,7 @@ import { routingHistoricos } from './components/historico/routes';
 
 import { AppComponent } from './app.component';
 import { AppNotFoundComponent } from './app-notfound.component';
+import { BemVindoComponent } from './bemvindo.component';
 
 import {AppService} from './app.service';
 
@@ -25,7 +26,8 @@ import 'rxjs/add/operator/map';
 @NgModule({
   declarations: [
     AppComponent,
-    AppNotFoundComponent
+    AppNotFoundComponent,
+    BemVindoComponent
   ],
   imports: [
     BrowserModule,
