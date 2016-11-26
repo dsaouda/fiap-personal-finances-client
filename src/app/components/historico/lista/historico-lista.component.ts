@@ -5,6 +5,7 @@ import {ContaService} from '../../conta/conta.service';
 import {ContaModel} from '../../conta/conta.model';
 import {SessionStorageService} from 'ng2-webstorage';
 import * as moment from 'moment';
+import {AppComponent} from '../../../app.component';
 
 @Component({
     selector: 'historico-lista',
@@ -13,6 +14,7 @@ import * as moment from 'moment';
 })
 export class HistoricoListaComponent implements OnInit {
     
+    loading: string = '0';
     historicosAbertos: Array<HistoricoModel>;
     historicosFinalizados: Array<HistoricoModel>;
     
@@ -66,6 +68,7 @@ export class HistoricoListaComponent implements OnInit {
     }
 
     onFiltroConta(event) {
+        AppComponent.mensagem = 'OK';
         this.filtro.contaId = Number(event.target.value);
 
         this.session.store('filtro', this.filtro);
@@ -98,30 +101,40 @@ export class HistoricoListaComponent implements OnInit {
     }
 
     onListarAbertas() {
-        
+        this.loading = 'true';
+
         this.service.listarAbertas(this.filtro.contaId).subscribe((historicos: Array<HistoricoModel>) => {
             this.historicosAbertos = historicos;
 
             this.buscarConta();
+
+            this.loading = 'false';
         });
 
     }
 
     onListarFinalizados() {
+        this.loading = 'true';
         this.service.listarFinalizados(this.filtro)
             .subscribe((historicos: Array<HistoricoModel>) => {
                 this.historicosFinalizados = historicos;
+
+                this.loading = 'false';
             });
 
     }
 
-    onExcluir(historico: HistoricoModel) {        
+    onExcluir(historico: HistoricoModel) {
+        this.loading = 'true';
+
         this.service.remover(historico.id).subscribe( () => {
-        this.onListarAbertas();
+            this.onListarAbertas();
         }, (error) => alert('ERRO'));                
     }
 
     onFinalizar(historico: HistoricoModel) {
+        this.loading = 'true';
+
         this.service.finalizar(historico).subscribe(() => {
             this.onListarAbertas();
             this.onListarFinalizados();
@@ -130,6 +143,8 @@ export class HistoricoListaComponent implements OnInit {
     }
 
     onAbrir(historico: HistoricoModel) {
+        this.loading = 'true';
+
         this.service.abrir(historico).subscribe(() => {
             this.onListarAbertas();
             this.onListarFinalizados();
